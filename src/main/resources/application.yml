@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/helper?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  jackson:
+    time-zone: Asia/Seoul
+
+  profiles:
+    include: secret
+
+  sql:
+    init:
+      mode: always
+
+jwt:
+  secret: healthper-secret-key-for-development-only
+  access-token-expiration: 1800000
+  refresh-token-expiration: 1209600000
+
+server:
+  port: 8080
+
+ai:
+  api:
+    # GPT 사용 시 (현재 활성화)
+    url: https://api.openai.com/v1/chat/completions
+    model: gpt-4o-mini
+    # Claude 사용 시
+    # url: https://api.anthropic.com/v1/messages
+    # model: claude-3-5-sonnet-20241022
