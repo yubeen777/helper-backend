@@ -3,6 +3,7 @@ package com.helper.backend.domain.user.service;
 import com.helper.backend.domain.user.dto.LoginRequest;
 import com.helper.backend.domain.user.dto.LoginResponse;
 import com.helper.backend.domain.user.dto.SignupRequest;
+import com.helper.backend.domain.user.dto.UpdateUserRequest;
 import com.helper.backend.domain.user.entity.User;
 import com.helper.backend.domain.user.repository.UserRepository;
 import com.helper.backend.global.exception.CustomException;
@@ -54,5 +55,21 @@ public class UserService {
     String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getEmail());
 
     return new LoginResponse(accessToken, user.getId(), user.getEmail(), user.getNickname());
+  }
+
+  // 닉네임 수정
+  @Transactional
+  public void updateUser(Long userId, UpdateUserRequest request) {
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    user.updateNickname(request.getNickname());
+  }
+
+  // 회원탈퇴
+  @Transactional
+  public void deleteUser(Long userId) {
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    user.softDelete();
   }
 }
