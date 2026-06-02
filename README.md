@@ -11,10 +11,10 @@
 
 | 분류 | 기술 |
 |------|------|
-| Language | Java 17 |
-| Framework | Spring Boot 4.0.6 |
+| Language | Java 21 |
+| Framework | Spring Boot 3.4.x |
 | ORM | Spring Data JPA (Hibernate) |
-| DB | MySQL 8 |
+| DB | MariaDB |
 | 인증 | Spring Security + JWT (jjwt 0.12.3) |
 | AI | OpenAI GPT-4o-mini (Claude 3.5 Sonnet 전환 가능) |
 | 비동기 | Spring @Async |
@@ -72,7 +72,7 @@ src/main/java/com/helper/backend/
 ## 실행 방법
 
 ### 사전 요구사항
-- Java 17+
+- Java 21+
 - MySQL 8.x 실행 중
 - OpenAI API Key (또는 Claude API Key)
 
@@ -170,12 +170,12 @@ ai:
 
 ### 재시작 시 데이터가 초기화되는 경우
 `application.yml`의 `ddl-auto`가 `create`로 설정되어 있어 재시작마다 테이블이 재생성됩니다.  
-데이터를 유지하려면 `update`로 변경하세요.
+데이터를 유지하려면 `validate`로 변경하세요.
 ```yaml
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 ```
 
 ### MySQL 연결 오류 (`Communications link failure`)
