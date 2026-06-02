@@ -1,4 +1,4 @@
-# Healthper Backend
+# Helper Backend
 
 > **헬스 운동 기록 및 AI 피드백 서비스 백엔드**
 
@@ -7,18 +7,30 @@
 
 ---
 
-## 기술 스택
+## 🔗 관련 링크
 
-| 분류 | 기술 |
-|------|------|
-| Language | Java 21 |
-| Framework | Spring Boot 3.4.x |
-| ORM | Spring Data JPA (Hibernate) |
-| DB | MariaDB |
-| 인증 | Spring Security + JWT (jjwt 0.12.3) |
-| AI | OpenAI GPT-4o-mini (Claude 3.5 Sonnet 전환 가능) |
-| 비동기 | Spring @Async |
-| 기타 | Lombok, Jackson |
+| 구분 | URL |
+|------|-----|
+| 라이브 서비스 | [helper-frontend-two.vercel.app](https://helper-frontend-two.vercel.app) |
+| 프론트엔드 레포 | [yubeen777/helper-frontend](https://github.com/yubeen777/helper-frontend) |
+
+### 테스트 계정
+
+| 이메일 | 비밀번호 |
+|--------|---------|
+| helper.guest@gmail.com | Helper1234! |
+
+---
+
+## 🛠 기술 스택
+
+![Java](https://img.shields.io/badge/Java_21-007396?style=flat-square&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot_3.4-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white)
+![JPA](https://img.shields.io/badge/Spring_Data_JPA-59666C?style=flat-square&logo=hibernate&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white)
+![OpenAI](https://img.shields.io/badge/GPT--4o--mini-412991?style=flat-square&logo=openai&logoColor=white)
 
 ---
 
@@ -73,7 +85,7 @@ src/main/java/com/helper/backend/
 
 ### 사전 요구사항
 - Java 21+
-- MySQL 8.x 실행 중
+- MariaDB 실행 중
 - OpenAI API Key (또는 Claude API Key)
 
 ### 1. 데이터베이스 생성
@@ -95,7 +107,7 @@ ai:
 
 spring:
   datasource:
-    password: your_mysql_password  # 필요 시 오버라이드
+    password: your_db_password     # 필요 시 오버라이드
 ```
 
 > `application.yml`의 `spring.profiles.include: secret` 설정으로 자동 로드됩니다.
@@ -129,8 +141,8 @@ java -jar build/libs/backend-0.0.1-SNAPSHOT.jar \
 |--------|------|------|------|
 | POST | `/api/auth/signup` | 회원가입 | 불필요 |
 | POST | `/api/auth/login` | 로그인 (JWT 발급) | 불필요 |
-| GET | `/api/me` | 내 정보 조회 | 필요 |
-| PUT | `/api/me` | 내 정보 수정 | 필요 |
+| GET | `/api/users/me` | 내 정보 조회 | 필요 |
+| PUT | `/api/users/me` | 내 정보 수정 | 필요 |
 | GET | `/api/exercises` | 운동 종목 목록 | 필요 |
 | POST | `/api/workouts` | 운동 세션 생성 | 필요 |
 | GET | `/api/workouts` | 운동 세션 목록 | 필요 |
@@ -178,8 +190,8 @@ spring:
       ddl-auto: validate
 ```
 
-### MySQL 연결 오류 (`Communications link failure`)
-- MySQL 서버가 실행 중인지 확인합니다.
+### DB 연결 오류 (`Communications link failure`)
+- MariaDB 서버가 실행 중인지 확인합니다.
 - `application.yml`의 DB URL·포트·비밀번호가 올바른지 확인합니다.
 - `helper` 데이터베이스가 생성되어 있는지 확인합니다.
 
