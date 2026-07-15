@@ -3,6 +3,7 @@ package com.helper.backend.domain.user.service;
 import com.helper.backend.domain.user.dto.LoginRequest;
 import com.helper.backend.domain.user.dto.LoginResponse;
 import com.helper.backend.domain.user.dto.SignupRequest;
+import com.helper.backend.domain.user.dto.UpdatePasswordRequest;
 import com.helper.backend.domain.user.dto.UpdateUserRequest;
 import com.helper.backend.domain.user.entity.User;
 import com.helper.backend.domain.user.repository.UserRepository;
@@ -71,5 +72,18 @@ public class UserService {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     user.softDelete();
+  }
+
+  // 비밀번호 변경
+  @Transactional
+  public void updatePassword(Long userId, UpdatePasswordRequest request) {
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+    if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+      throw new CustomException(ErrorCode.INVALID_PASSWORD);
+    }
+
+    user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
   }
 }
